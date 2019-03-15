@@ -1,0 +1,13 @@
+header			payload					trailer
+source	target	msg						end
+0	1	"oi"	0
+1	1	"iniciando..."	1
+0	1	"tudo"	0
+0	1	"bem?"	1
+1	0	"ola"	1
+0	0	"lol"	1
+1	0	"task X"	1
+0	0	"busca task x"	1
+0	1	"TASK X OMITTED"
+0	0	"desisto"	1
+1	1	"flw vlw"	1
