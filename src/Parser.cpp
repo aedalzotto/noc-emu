@@ -3,20 +3,10 @@
 #include <fstream>
 #include <sstream>
 
-std::string Parser::fname;
 std::vector<message_t> Parser::messages;
 
-int Parser::args(int &argc, char *argv[])
-{
-    if(argc != 2){
-        std::cout << "Usage: nocdefault FILE" << std::endl;
-        return -1;
-    }
-    
-    fname = argv[1];
-
-    return 0;
-}
+int Parser::max_x = 0;
+int Parser::max_y = 0;
 
 const std::vector<std::string> Parser::explode(const std::string& s, const char& c)
 {
@@ -79,6 +69,12 @@ int Parser::parse(std::string &fname)
         unsigned int _dst = std::stoi(buffer_split[1]);
         // msg = buffer_split[2]
         unsigned int _end = std::stoi(buffer_split[3]);
+
+        if(_src > max_x)
+            max_x = _src;
+
+        if(_dst > max_x)
+            max_x = _dst;
 
         message_t aux = {
             .src = _src,

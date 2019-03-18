@@ -1,4 +1,4 @@
-EXEC := nocmesh
+EXEC := nocemu
 
 CC := g++
 CP := cp
