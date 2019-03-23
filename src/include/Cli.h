@@ -1,6 +1,8 @@
 #ifndef _CLI_H_
 #define _CLI_H_
 
+#include <Noc.h>
+
 #include <iostream>
 #include <vector>
 
@@ -9,15 +11,11 @@ public:
     static int run(int &argc, char *argv[]);
 
 private:
-    enum class Type {
-        RING,
-        MESH
-    };
     static Type type;
     static std::string fname;
 
-    static int x_size;
-    static int y_size;
+    static unsigned int x_size;
+    static unsigned int y_size;
 
     static int parse_args(int &argc, char *argv[]);
     static void print_usage();

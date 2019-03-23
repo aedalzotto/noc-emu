@@ -17,7 +17,7 @@ void PE::run()
     while(true){
 
         if(out_msg.size()){
-            if(out_msg.front().dst != x) { // if not addressed to this PE
+            if(out_msg.front().dst_x != x || out_msg.front().dst_y != y) { // if not addressed to this PE
                 NoC::writing(out_msg.front());
                 router->write(out_msg.front()); // Writes to router
             } else   // Can happen if message from PE itself

@@ -14,7 +14,7 @@ TARGET := $(EXECDIR)/$(EXEC)
 SRCEXT := cpp
 SOURCES := $(wildcard $(SRCDIR)/*.$(SRCEXT))
 OBJECTS := $(addprefix $(BUILDDIR)/,$(notdir $(SOURCES:.$(SRCEXT)=.o)))
-CFLAGS := -g -Wall
+CFLAGS := -g -Wall -O3
 LDFLAGS := -pthread
 INCLUDES := -I./$(SRCDIR)/include
 

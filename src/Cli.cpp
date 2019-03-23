@@ -3,11 +3,11 @@
 #include <cstring>
 #include <cctype>
 
-Cli::Type Cli::type;
+Type Cli::type;
 std::string Cli::fname;
 
-int Cli::x_size = 0;
-int Cli::y_size = 0;
+unsigned int Cli::x_size = 0;
+unsigned int Cli::y_size = 0;
 
 int Cli::run(int &argc, char *argv[])
 {
@@ -59,8 +59,8 @@ int Cli::parse_args(int &argc, char *argv[])
         } else {
             x_size = atoi(argv[2]);
         }
-    } else if(type == Type::RING){
-        if(argc != 5 || !isdigit(argv[2][0] || !isdigit(argv[3][0]))){
+    } else if(type == Type::MESH){
+        if(argc != 5 || !isdigit(argv[2][0]) || !isdigit(argv[3][0])){
             std::cout << "Tamanho inválido" << std::endl << std::endl;
             print_usage();
             return -4;
@@ -85,25 +85,39 @@ void Cli::print_usage()
 
 int Cli::parse_test()
 {
-    int ret = Parser::parse(fname);
-    if(ret)
+    int ret = Parser::parse(fname, type);
+    switch(ret){
+    case -1:
         std::cout << "Arquivo não existente" << std::endl;
-    else
+        break;
+    case -2:
+        std::cout << "Arquivo incompatível com mesh" << std::endl;
+        break;
+    default:
         std::cout << "Carregado com sucesso" << std::endl;
+        break;
+    }    
     
     return ret;
 }
 
 int Cli::create_noc()
 {
-    std::cout << x_size << "  " << Parser::get_max_x();
     int ret = 0;
     if((ret = check_size())){
         std::cout << "Tamanho insuficiente para simulação" << std::endl;
         return ret;
     }
 
-    ret = NoC::build_noc(x_size);
+    switch(type){
+    case Type::RING:
+        ret = NoC::build_noc(x_size);
+        break;
+    case Type::MESH:
+        ret = NoC::build_noc(x_size, y_size);
+        break;
+    }
+
     if(!ret) {
         std::cout << "Erro ao criar NoC" << std::endl;
         return -2;

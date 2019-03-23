@@ -1,0 +1,4 @@
+header			payload					trailer
+source	target	msg						end
+00	11	"Say Hello"	1
+11	00	"Hello"	0

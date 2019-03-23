@@ -5,8 +5,8 @@
 
 std::vector<message_t> Parser::messages;
 
-int Parser::max_x = 0;
-int Parser::max_y = 0;
+unsigned int Parser::max_x = 0;
+unsigned int Parser::max_y = 0;
 
 const std::vector<std::string> Parser::explode(const std::string& s, const char& c)
 {
@@ -33,7 +33,7 @@ bool Parser::is_integer(const std::string &s)
     return (*p == 0);
 }
 
-int Parser::parse(std::string &fname)
+int Parser::parse(std::string &fname, Type &type)
 {
     std::fstream file;
 
@@ -59,26 +59,48 @@ int Parser::parse(std::string &fname)
         if(buffer_split.size() != 4)
             continue;
 
-        unsigned int _src;
+        unsigned int _src_x;
+        unsigned int _src_y = 0;
+        unsigned int _dst_x;
+        unsigned int _dst_y = 0;
         // Skip headers
-        if(is_integer(buffer_split[0]))
-            _src = std::stoi(buffer_split[0]);
-        else
+        if(is_integer(buffer_split[0])){
+            if(type == Type::MESH){
+                if(buffer_split[0].size()%2 || buffer_split[1].size()%2)    // Only pair src and dst
+                    return -2;
+                
+                _src_x = std::stoi(buffer_split[0].substr(0,buffer_split[0].size()/2));
+                _src_y = std::stoi(buffer_split[0].substr(buffer_split[0].size()/2,buffer_split[0].size()));
+
+                _dst_x = std::stoi(buffer_split[1].substr(0,buffer_split[1].size()/2));
+                _dst_y = std::stoi(buffer_split[1].substr(buffer_split[1].size()/2,buffer_split[1].size()));
+            } else {
+                _src_x = std::stoi(buffer_split[0]);
+                _dst_x = std::stoi(buffer_split[1]);
+            }
+        } else
             continue;
 
-        unsigned int _dst = std::stoi(buffer_split[1]);
         // msg = buffer_split[2]
         unsigned int _end = std::stoi(buffer_split[3]);
 
-        if(_src > max_x)
-            max_x = _src;
+        if(_src_x > max_x)
+            max_x = _src_x;
 
-        if(_dst > max_x)
-            max_x = _dst;
+        if(_dst_x > max_x)
+            max_x = _dst_x;
+
+        if(_src_y > max_y)
+            max_y = _src_y;
+
+        if(_dst_y > max_y)
+            max_y = _dst_y;
 
         message_t aux = {
-            .src = _src,
-            .dst = _dst,
+            .src_x = _src_x,
+            .src_y = _src_y,
+            .dst_x = _dst_x,
+            .dst_y = _dst_y,
             .msg = buffer_split[2],
             .end = _end
         };

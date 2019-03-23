@@ -1,0 +1,10 @@
+header			payload					trailer
+source	target	msg						end
+00	22	"Say Hello"	1
+22	00	"Hello"	1
+02	20	"You, say hello"	1
+20	02	"Nop"	1
+21	00	"Send me a task"	1
+00	11	"Send a task to 21"	1
+11	21	"Task X"	1
+21	21	"Finalizando teste"	1
