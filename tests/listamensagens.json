@@ -1,0 +1,60 @@
+{
+    "nocemu": [
+        {
+            "project": {
+                "noc": {
+                    "x": "2",
+                    "topology": "Ring",
+                    "nodes": [
+                        {
+                            "router": {
+                                "id": "0",
+                                "right": "1",
+                                "local": "PE0"
+                            },
+                            "router": {
+                                "id": "1",
+                                "right": "0",
+                                "local": "PE1"
+                            }
+                        }
+                    ]
+                },
+                "communication": {
+                    "volume": [
+                        {
+                            "router": {
+                                "id": "0",
+                                "message_count": "5",
+                                "ports": {
+                                    "right": "30%",
+                                    "local": "50%"
+                                }
+                            },
+                            "router": {
+                                "id": "1",
+                                "message_count": "5",
+                                "ports": {
+                                    "right": "20%",
+                                    "local": "50%"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "execution": [
+                    {
+                        "proc": {
+                            "id": "PE0",
+                            "requests": "5"
+                        },
+                        "proc": {
+                            "id": "PE1",
+                            "requests": "5"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

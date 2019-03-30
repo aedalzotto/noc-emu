@@ -20,14 +20,17 @@ void PE::run()
             if(out_msg.front().dst_x != x || out_msg.front().dst_y != y) { // if not addressed to this PE
                 NoC::writing(out_msg.front());
                 router->write(out_msg.front()); // Writes to router
-            } else   // Can happen if message from PE itself
+            } else {  // Can happen if message from PE itself
+                rcvd++;
                 NoC::received(out_msg.front()); // Writes to Cli
-            
+            }
+
             out_msg.pop();    // Removes from PE
         }
 
         if(router->available()){
             message_t in_msg = router->read();
+            rcvd++;
             NoC::received(in_msg);     // Writes to Cli
         }
         

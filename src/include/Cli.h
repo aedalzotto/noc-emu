@@ -12,6 +12,7 @@ public:
 
 private:
     static Type type;
+    static Outfmt outfmt;
     static std::string fname;
 
     static unsigned int x_size;
@@ -25,6 +26,7 @@ private:
     static int inject_msg();
     static int init_thread();
 
+    static int report();
 };
 
 #endif /* _CLI_H_ */

@@ -12,16 +12,22 @@ class Router;
 
 class PE {
 public:
-    PE(unsigned int _x) : x(_x), y(0), router(nullptr) { }
-    PE(unsigned int _x, unsigned int _y) : x(_x), y(_y), router(nullptr) { }
+    PE(unsigned int _x) : x(_x), y(0), rcvd(0), router(nullptr) { }
+    PE(unsigned int _x, unsigned int _y) : x(_x), y(_y), rcvd(0), router(nullptr) { }
     void add_msg(message_t msg);
     void connect_router(Router &_router);
     
     void run();
 
+    unsigned int get_rcvd() { return rcvd; }
+    unsigned int get_x() { return x; }
+    unsigned int get_y() { return y; }
+
 private:
     unsigned int x;
     unsigned int y;
+
+    unsigned int rcvd;
 
     std::queue<message_t> out_msg;
 

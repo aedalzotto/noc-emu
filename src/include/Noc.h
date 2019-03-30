@@ -10,6 +10,8 @@
 #include <mutex>
 #include <queue>
 
+#include <boost/property_tree/ptree.hpp>
+
 struct message_t {
     unsigned int src_x;
     unsigned int src_y;
@@ -25,6 +27,11 @@ class Router;
 enum class Type {
     RING,
     MESH
+};
+
+enum class Outfmt {
+    JSON,
+    XML
 };
 
 class NoC {
@@ -43,6 +50,23 @@ public:
     static bool finish();
     static void wait_simulation();
 
+    static unsigned int get_pes_size();
+    static unsigned int get_pe_rcvd(unsigned int i);
+    static unsigned int get_pe_x(unsigned int i);
+    static unsigned int get_pe_y(unsigned int i);
+
+    static unsigned int get_routers_size();
+    static unsigned int get_router_x(unsigned int i);
+    static unsigned int get_router_y(unsigned int i);
+    static unsigned int get_router_msg_cnt(unsigned int i);
+    static unsigned int get_router_local_ratio(unsigned int i);
+    static unsigned int get_router_left_ratio(unsigned int i);
+    static unsigned int get_router_right_ratio(unsigned int i);
+    static unsigned int get_router_upper_ratio(unsigned int i);
+    static unsigned int get_router_bottom_ratio(unsigned int i);
+
+    static void report(Outfmt outfmt, std::string fname);
+
 private:
     static Type type;
     static int xq;
@@ -58,6 +82,16 @@ private:
 
     static std::mutex rcvd_mtx;
     static std::mutex print_mtx;
+
+    static void add_noc(boost::property_tree::ptree &project);
+    static void add_nodes(boost::property_tree::ptree &noc);
+    static void add_router(boost::property_tree::ptree &nodes, unsigned int i, unsigned int j);
+
+    static void add_communication(boost::property_tree::ptree &project);
+    static void add_volume(boost::property_tree::ptree &volume, unsigned int i, unsigned int j);
+
+    static void add_execution(boost::property_tree::ptree &project);
+    static void add_processor(boost::property_tree::ptree &exec, unsigned int i, unsigned int j);
 };
 
 #endif /* _NOC_H_ */

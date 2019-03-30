@@ -5,6 +5,7 @@
 
 #include <mutex>
 #include <queue>
+#include <cmath>
 
 struct message_t;
 enum class Type;
@@ -34,10 +35,34 @@ public:
 
     void run();
 
+    unsigned int get_msg_cnt() { return msg_cnt; }
+    unsigned int get_local_ratio() { return round((double)local_cnt / (local_cnt+left_cnt+right_cnt+upper_cnt+bottom_cnt)*100.0); }
+    unsigned int get_left_ratio() { return round((double)left_cnt / (local_cnt+left_cnt+right_cnt+upper_cnt+bottom_cnt)*100.0); }
+    unsigned int get_right_ratio() { return round((double)right_cnt / (local_cnt+left_cnt+right_cnt+upper_cnt+bottom_cnt)*100.0); }
+    unsigned int get_upper_ratio() { return round((double)upper_cnt / (local_cnt+left_cnt+right_cnt+upper_cnt+bottom_cnt)*100.0); }
+    unsigned int get_bottom_ratio() { return round((double)bottom_cnt / (local_cnt+left_cnt+right_cnt+upper_cnt+bottom_cnt)*100.0); }
+
+    Router *get_left_ptr() { return left; }
+    Router *get_right_ptr() { return right; }
+    Router *get_upper_ptr() { return upper; }
+    Router *get_bottom_ptr() { return bottom; }
+
+    std::string get_left_xy();
+    std::string get_right_xy();
+    std::string get_upper_xy();
+    std::string get_bottom_xy();
+
 private:
     unsigned int x;
     unsigned int y;
     Type type;
+
+    unsigned int msg_cnt;
+    unsigned int local_cnt;
+    unsigned int left_cnt;
+    unsigned int right_cnt;
+    unsigned int upper_cnt;
+    unsigned int bottom_cnt;
 
     std::mutex local_w_mtx;
     std::mutex local_r_mtx;
@@ -67,6 +92,8 @@ private:
     void route_from_bottom();
 
     void send2pe(message_t msg);
+
+    static std::string make_xy(unsigned int x, unsigned int y);
 };
 
 #endif /* _ROUTER_H_ */

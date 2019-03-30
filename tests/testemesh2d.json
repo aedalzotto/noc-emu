@@ -1,0 +1,210 @@
+{
+    "nocemu": [
+        {
+            "project": {
+                "noc": {
+                    "x": "3",
+                    "y": "3",
+                    "topology": "Mesh 2D",
+                    "nodes": [
+                        {
+                            "router": {
+                                "id": "00",
+                                "right": "10",
+                                "top": "01",
+                                "local": "PE00"
+                            },
+                            "router": {
+                                "id": "10",
+                                "right": "20",
+                                "left": "00",
+                                "top": "11",
+                                "local": "PE10"
+                            },
+                            "router": {
+                                "id": "20",
+                                "left": "10",
+                                "top": "21",
+                                "local": "PE20"
+                            },
+                            "router": {
+                                "id": "01",
+                                "right": "11",
+                                "top": "02",
+                                "bottom": "00",
+                                "local": "PE01"
+                            },
+                            "router": {
+                                "id": "11",
+                                "right": "21",
+                                "left": "01",
+                                "top": "12",
+                                "bottom": "10",
+                                "local": "PE11"
+                            },
+                            "router": {
+                                "id": "21",
+                                "left": "11",
+                                "top": "22",
+                                "bottom": "20",
+                                "local": "PE21"
+                            },
+                            "router": {
+                                "id": "02",
+                                "right": "12",
+                                "bottom": "01",
+                                "local": "PE02"
+                            },
+                            "router": {
+                                "id": "12",
+                                "right": "22",
+                                "left": "02",
+                                "bottom": "11",
+                                "local": "PE12"
+                            },
+                            "router": {
+                                "id": "22",
+                                "left": "12",
+                                "bottom": "21",
+                                "local": "PE22"
+                            }
+                        }
+                    ]
+                },
+                "communication": {
+                    "volume": [
+                        {
+                            "router": {
+                                "id": "00",
+                                "message_count": "5",
+                                "ports": {
+                                    "right": "30%",
+                                    "top": "30%",
+                                    "local": "40%"
+                                }
+                            },
+                            "router": {
+                                "id": "10",
+                                "message_count": "3",
+                                "ports": {
+                                    "right": "33%",
+                                    "left": "50%",
+                                    "top": "17%",
+                                    "local": "0%"
+                                }
+                            },
+                            "router": {
+                                "id": "20",
+                                "message_count": "3",
+                                "ports": {
+                                    "left": "33%",
+                                    "top": "33%",
+                                    "local": "33%"
+                                }
+                            },
+                            "router": {
+                                "id": "01",
+                                "message_count": "3",
+                                "ports": {
+                                    "right": "17%",
+                                    "top": "33%",
+                                    "bottom": "50%",
+                                    "local": "0%"
+                                }
+                            },
+                            "router": {
+                                "id": "11",
+                                "message_count": "3",
+                                "ports": {
+                                    "right": "33%",
+                                    "left": "17%",
+                                    "top": "0%",
+                                    "bottom": "17%",
+                                    "local": "33%"
+                                }
+                            },
+                            "router": {
+                                "id": "21",
+                                "message_count": "4",
+                                "ports": {
+                                    "left": "25%",
+                                    "top": "25%",
+                                    "bottom": "25%",
+                                    "local": "25%"
+                                }
+                            },
+                            "router": {
+                                "id": "02",
+                                "message_count": "3",
+                                "ports": {
+                                    "right": "33%",
+                                    "bottom": "33%",
+                                    "local": "33%"
+                                }
+                            },
+                            "router": {
+                                "id": "12",
+                                "message_count": "2",
+                                "ports": {
+                                    "right": "50%",
+                                    "left": "50%",
+                                    "bottom": "0%",
+                                    "local": "0%"
+                                }
+                            },
+                            "router": {
+                                "id": "22",
+                                "message_count": "3",
+                                "ports": {
+                                    "left": "33%",
+                                    "bottom": "33%",
+                                    "local": "33%"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "execution": [
+                    {
+                        "proc": {
+                            "id": "PE00",
+                            "requests": "2"
+                        },
+                        "proc": {
+                            "id": "PE10",
+                            "requests": "0"
+                        },
+                        "proc": {
+                            "id": "PE20",
+                            "requests": "1"
+                        },
+                        "proc": {
+                            "id": "PE01",
+                            "requests": "0"
+                        },
+                        "proc": {
+                            "id": "PE11",
+                            "requests": "1"
+                        },
+                        "proc": {
+                            "id": "PE21",
+                            "requests": "2"
+                        },
+                        "proc": {
+                            "id": "PE02",
+                            "requests": "1"
+                        },
+                        "proc": {
+                            "id": "PE12",
+                            "requests": "0"
+                        },
+                        "proc": {
+                            "id": "PE22",
+                            "requests": "1"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
