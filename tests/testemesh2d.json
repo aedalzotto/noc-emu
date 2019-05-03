@@ -8,33 +8,33 @@
                     "topology": "Mesh 2D",
                     "nodes": [
                         {
-                            "router": {
+                            "router00": {
                                 "id": "00",
                                 "right": "10",
                                 "top": "01",
                                 "local": "PE00"
                             },
-                            "router": {
+                            "router10": {
                                 "id": "10",
                                 "right": "20",
                                 "left": "00",
                                 "top": "11",
                                 "local": "PE10"
                             },
-                            "router": {
+                            "router20": {
                                 "id": "20",
                                 "left": "10",
                                 "top": "21",
                                 "local": "PE20"
                             },
-                            "router": {
+                            "router01": {
                                 "id": "01",
                                 "right": "11",
                                 "top": "02",
                                 "bottom": "00",
                                 "local": "PE01"
                             },
-                            "router": {
+                            "router11": {
                                 "id": "11",
                                 "right": "21",
                                 "left": "01",
@@ -42,27 +42,27 @@
                                 "bottom": "10",
                                 "local": "PE11"
                             },
-                            "router": {
+                            "router21": {
                                 "id": "21",
                                 "left": "11",
                                 "top": "22",
                                 "bottom": "20",
                                 "local": "PE21"
                             },
-                            "router": {
+                            "router02": {
                                 "id": "02",
                                 "right": "12",
                                 "bottom": "01",
                                 "local": "PE02"
                             },
-                            "router": {
+                            "router12": {
                                 "id": "12",
                                 "right": "22",
                                 "left": "02",
                                 "bottom": "11",
                                 "local": "PE12"
                             },
-                            "router": {
+                            "router22": {
                                 "id": "22",
                                 "left": "12",
                                 "bottom": "21",
@@ -74,7 +74,7 @@
                 "communication": {
                     "volume": [
                         {
-                            "router": {
+                            "router00": {
                                 "id": "00",
                                 "message_count": "5",
                                 "ports": {
@@ -83,7 +83,7 @@
                                     "local": "40%"
                                 }
                             },
-                            "router": {
+                            "router10": {
                                 "id": "10",
                                 "message_count": "3",
                                 "ports": {
@@ -93,7 +93,7 @@
                                     "local": "0%"
                                 }
                             },
-                            "router": {
+                            "router20": {
                                 "id": "20",
                                 "message_count": "3",
                                 "ports": {
@@ -102,7 +102,7 @@
                                     "local": "33%"
                                 }
                             },
-                            "router": {
+                            "router01": {
                                 "id": "01",
                                 "message_count": "3",
                                 "ports": {
@@ -112,7 +112,7 @@
                                     "local": "0%"
                                 }
                             },
-                            "router": {
+                            "router11": {
                                 "id": "11",
                                 "message_count": "3",
                                 "ports": {
@@ -123,7 +123,7 @@
                                     "local": "33%"
                                 }
                             },
-                            "router": {
+                            "router21": {
                                 "id": "21",
                                 "message_count": "4",
                                 "ports": {
@@ -133,7 +133,7 @@
                                     "local": "25%"
                                 }
                             },
-                            "router": {
+                            "router02": {
                                 "id": "02",
                                 "message_count": "3",
                                 "ports": {
@@ -142,7 +142,7 @@
                                     "local": "33%"
                                 }
                             },
-                            "router": {
+                            "router12": {
                                 "id": "12",
                                 "message_count": "2",
                                 "ports": {
@@ -152,7 +152,7 @@
                                     "local": "0%"
                                 }
                             },
-                            "router": {
+                            "router22": {
                                 "id": "22",
                                 "message_count": "3",
                                 "ports": {

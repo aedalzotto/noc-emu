@@ -372,7 +372,7 @@ void NoC::add_router(boost::property_tree::ptree &nodes, unsigned int i, unsigne
     pexy << "PE" << rxy.str();
     router.put("local", pexy.str());
 
-    nodes.add_child("router", router);
+    nodes.add_child("router"+std::to_string(i)+std::to_string(j), router);
 }
 
 void NoC::add_communication(boost::property_tree::ptree &project)
@@ -430,7 +430,7 @@ void NoC::add_volume(boost::property_tree::ptree &volume, unsigned int i, unsign
 
     router.put_child("ports", ports);
 
-    volume.add_child("router", router);
+    volume.add_child("router"+std::to_string(i)+std::to_string(j), router);
 }
 
 void NoC::add_execution(boost::property_tree::ptree &project)
