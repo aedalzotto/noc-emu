@@ -292,18 +292,9 @@ unsigned int NoC::get_router_bottom_ratio(unsigned int i)
 void NoC::report(Outfmt outfmt, std::string fname)
 {
     bpt::ptree main_tree;
-    bpt::ptree tree;
-    bpt::ptree array;
-    bpt::ptree project;
 
-    add_noc(project);
-    add_communication(project);
-    add_execution(project);
+    add_noc(main_tree);
     
-    tree.put_child("project", project);
-    array.push_back(std::make_pair("", tree));
-    main_tree.put_child("nocemu", array);
-
     switch(outfmt){
     case Outfmt::JSON:
         bpt::json_parser::write_json(fname.substr(0, fname.length()-4)+".json", main_tree);
@@ -317,10 +308,8 @@ void NoC::report(Outfmt outfmt, std::string fname)
 
 void NoC::add_noc(boost::property_tree::ptree &project)
 {
-    bpt::ptree noc;
-
-    noc.put("x", xq);
-	if(type == Type::MESH) noc.put("y", yq);
+    project.put("x", xq);
+	if(type == Type::MESH) project.put("y", yq);
 	std::string topology;
 	switch(type){
 	case Type::MESH:
@@ -330,11 +319,11 @@ void NoC::add_noc(boost::property_tree::ptree &project)
 		topology = "Ring";
 		break;
 	}
-	noc.put("topology", topology);
+	project.put("topology", topology);
 
-    add_nodes(noc);
+    add_nodes(project);
 
-    project.put_child("noc", noc);
+    //project.put_child("noc", noc);
 }
 
 void NoC::add_nodes(boost::property_tree::ptree &noc)
@@ -347,8 +336,7 @@ void NoC::add_nodes(boost::property_tree::ptree &noc)
         for(unsigned int i = 0; i < xq; i++)
             add_router(nodes, i, j);
 
-    array.push_back(std::make_pair("", nodes));
-    noc.put_child("nodes", array);
+    noc.put_child("nodes", nodes);
 }
 
 void NoC::add_router(boost::property_tree::ptree &nodes, unsigned int i, unsigned int j)
@@ -372,39 +360,20 @@ void NoC::add_router(boost::property_tree::ptree &nodes, unsigned int i, unsigne
     pexy << "PE" << rxy.str();
     router.put("local", pexy.str());
 
-    nodes.add_child("router"+std::to_string(i)+std::to_string(j), router);
+    add_communication(router, i, j);
+
+    nodes.push_back(std::make_pair("", router));
 }
 
-void NoC::add_communication(boost::property_tree::ptree &project)
+void NoC::add_communication(boost::property_tree::ptree &router, unsigned int i, unsigned int j)
 {
-    bpt::ptree comm;
-    bpt::ptree array;
-    bpt::ptree volume;
-
-    unsigned int ysz = yq ? yq : 1;
-    for(unsigned int j = 0; j < ysz; j++)
-        for(unsigned int i = 0; i < xq; i++)
-            add_volume(volume, i, j);
-    
-    array.push_back(std::make_pair("", volume));
-    comm.put_child("volume", array);
-
-    project.put_child("communication", comm);
-}
-
-void NoC::add_volume(boost::property_tree::ptree &volume, unsigned int i, unsigned int j)
-{
-    bpt::ptree router;
+    bpt::ptree communication;
     bpt::ptree ports;
 
+    communication.put("requests", pes[i + j*xq].get_rcvd());
+    communication.put("message_count", routers[i + j*xq].get_msg_cnt());
+
     std::ostringstream oss;
-    oss << routers[i + j*xq].get_x();
-    if(type == Type::MESH) oss << routers[i + j*xq].get_y();
-
-    router.put("id", oss.str());
-    router.put("message_count", routers[i + j*xq].get_msg_cnt());
-
-    oss.str("");
     if(routers[i + j*xq].get_right_ptr()){
         oss << routers[i + j*xq].get_right_ratio() << "%";
         ports.put("right", oss.str());
@@ -428,35 +397,7 @@ void NoC::add_volume(boost::property_tree::ptree &volume, unsigned int i, unsign
     oss << routers[i + j*xq].get_local_ratio() << "%";
     ports.put("local", oss.str());
 
-    router.put_child("ports", ports);
+    communication.put_child("ports", ports);
 
-    volume.add_child("router"+std::to_string(i)+std::to_string(j), router);
-}
-
-void NoC::add_execution(boost::property_tree::ptree &project)
-{
-    bpt::ptree exec;
-    bpt::ptree array;
-
-    unsigned int ysz = yq ? yq : 1;
-    for(unsigned int j = 0; j < ysz; j++)
-        for(unsigned int i = 0; i < xq; i++)
-            add_processor(exec, i, j);
-    
-    array.push_back(std::make_pair("", exec));
-    project.put_child("execution", array);
-}
-
-void NoC::add_processor(boost::property_tree::ptree &exec, unsigned int i, unsigned int j)
-{
-    bpt::ptree proc;
-
-    std::ostringstream oss;
-    oss << "PE" << pes[i + j*xq].get_x();
-    if(type == Type::MESH) oss << pes[i + j*xq].get_y();
-
-    proc.put("id", oss.str());
-    proc.put("requests", pes[i + j*xq].get_rcvd());
-
-    exec.push_back(std::make_pair("proc", proc));
+    router.put_child("communication", communication);
 }

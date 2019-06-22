@@ -1,0 +1,101 @@
+{
+    "x": "3",
+    "y": "2",
+    "topology": "Mesh 2D",
+    "nodes": [
+        {
+            "id": "00",
+            "right": "10",
+            "top": "01",
+            "local": "PE00",
+            "communication": {
+                "requests": "1",
+                "message_count": "2",
+                "ports": {
+                    "right": "25%",
+                    "top": "25%",
+                    "local": "50%"
+                }
+            }
+        },
+        {
+            "id": "10",
+            "right": "20",
+            "left": "00",
+            "top": "11",
+            "local": "PE10",
+            "communication": {
+                "requests": "0",
+                "message_count": "1",
+                "ports": {
+                    "right": "0%",
+                    "left": "50%",
+                    "top": "50%",
+                    "local": "0%"
+                }
+            }
+        },
+        {
+            "id": "20",
+            "left": "10",
+            "top": "21",
+            "local": "PE20",
+            "communication": {
+                "requests": "0",
+                "message_count": "0",
+                "ports": {
+                    "left": "0%",
+                    "top": "0%",
+                    "local": "0%"
+                }
+            }
+        },
+        {
+            "id": "01",
+            "right": "11",
+            "bottom": "00",
+            "local": "PE01",
+            "communication": {
+                "requests": "0",
+                "message_count": "1",
+                "ports": {
+                    "right": "50%",
+                    "bottom": "50%",
+                    "local": "0%"
+                }
+            }
+        },
+        {
+            "id": "11",
+            "right": "21",
+            "left": "01",
+            "bottom": "10",
+            "local": "PE11",
+            "communication": {
+                "requests": "1",
+                "message_count": "2",
+                "ports": {
+                    "right": "0%",
+                    "left": "25%",
+                    "bottom": "25%",
+                    "local": "50%"
+                }
+            }
+        },
+        {
+            "id": "21",
+            "left": "11",
+            "bottom": "20",
+            "local": "PE21",
+            "communication": {
+                "requests": "0",
+                "message_count": "0",
+                "ports": {
+                    "left": "0%",
+                    "bottom": "0%",
+                    "local": "0%"
+                }
+            }
+        }
+    ]
+}

@@ -86,12 +86,8 @@ private:
     static void add_noc(boost::property_tree::ptree &project);
     static void add_nodes(boost::property_tree::ptree &noc);
     static void add_router(boost::property_tree::ptree &nodes, unsigned int i, unsigned int j);
+    static void add_communication(boost::property_tree::ptree &router, unsigned int i, unsigned int j);
 
-    static void add_communication(boost::property_tree::ptree &project);
-    static void add_volume(boost::property_tree::ptree &volume, unsigned int i, unsigned int j);
-
-    static void add_execution(boost::property_tree::ptree &project);
-    static void add_processor(boost::property_tree::ptree &exec, unsigned int i, unsigned int j);
 };
 
 #endif /* _NOC_H_ */
